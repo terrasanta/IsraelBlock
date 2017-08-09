@@ -23,5 +23,10 @@ namespace IsraelBlock.Controllers
         {   
             return View(categoryList.OrderBy(c => c.Name));
         }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
     }
 }

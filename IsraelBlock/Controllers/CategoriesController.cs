@@ -15,7 +15,7 @@ namespace IsraelBlock.Controllers
             new Category(){ CategoryId = 2, Name = "Monitor"},
             new Category(){ CategoryId = 3, Name = "Notebook"},
             new Category(){ CategoryId = 4, Name = "Mouse"},
-            new Category(){ CategoryId = 5, Name = "Printer"}
+            new Category(){ CategoryId = 5, Name = "Printers"}
         };
 
         // GET: Categories

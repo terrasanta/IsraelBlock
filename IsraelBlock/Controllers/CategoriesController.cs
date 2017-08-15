@@ -28,5 +28,15 @@ namespace IsraelBlock.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Category category)
+        {
+            categoryList.Add(category);
+            category.CategoryId =
+            categoryList.Select(m => m.CategoryId).Max() + 1;
+            return RedirectToAction("Index");
+        }
     }
 }

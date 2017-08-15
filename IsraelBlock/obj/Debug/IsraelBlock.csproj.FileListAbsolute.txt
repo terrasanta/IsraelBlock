@@ -51,3 +51,4 @@ c:\users\israe\onedrive\documentos\visual studio 2017\Projects\IsraelBlock\Israe
 c:\users\israe\onedrive\documentos\visual studio 2017\Projects\IsraelBlock\IsraelBlock\obj\Debug\IsraelBlock.csprojResolveAssemblyReference.cache
 c:\users\israe\onedrive\documentos\visual studio 2017\Projects\IsraelBlock\IsraelBlock\obj\Debug\IsraelBlock.dll
 c:\users\israe\onedrive\documentos\visual studio 2017\Projects\IsraelBlock\IsraelBlock\obj\Debug\IsraelBlock.pdb
+C:\Users\israe\onedrive\documentos\visual studio 2017\Projects\IsraelBlock\IsraelBlock\obj\Debug\IsraelBlock.csproj.CoreCompileInputs.cache

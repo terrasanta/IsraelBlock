@@ -24,6 +24,7 @@ namespace IsraelBlock.Controllers
             return View(categoryList.OrderBy(c => c.Name));
         }
 
+        #region Create
         public ActionResult Create()
         {
             return View();
@@ -35,8 +36,69 @@ namespace IsraelBlock.Controllers
         {
             categoryList.Add(category);
             category.CategoryId =
-            categoryList.Select(m => m.CategoryId).Max() + 1;
+                categoryList.Select(m => m.CategoryId).Max() + 1;
             return RedirectToAction("Index");
         }
+        #endregion
+
+        #region Details
+        public ActionResult Details(long id)
+        {
+            var category = categoryList
+                .Where(c => c.CategoryId == id)
+                .First();
+            return View(category);
+        }
+
+        #endregion
+
+        #region Edit
+
+        public ActionResult Edit(long id)
+        {
+            var category = categoryList
+                .Where(c => c.CategoryId == id)
+                .First();
+            return View(category);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Category modified)
+        {
+            var category = categoryList
+                .Where(c => c.CategoryId == modified.CategoryId)
+                .First();
+
+            category.Name = modified.Name;
+            return RedirectToAction("Index");
+        }
+
+        #endregion
+
+        #region Delete
+
+        public ActionResult Delete(long id)
+        {
+            var category = categoryList
+                .Where(c => c.CategoryId == id)
+                .First();
+            return View(category);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(Category toDelete)
+        {
+            var category = categoryList
+                .Where(c => c.CategoryId == toDelete.CategoryId)
+                .First();
+
+            categoryList.Remove(category);
+            return RedirectToAction("Index");
+        }
+
+
+        #endregion
     }
 }

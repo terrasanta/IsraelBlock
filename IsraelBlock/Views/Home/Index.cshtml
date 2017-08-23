@@ -1,23 +1,52 @@
 ﻿@model IsraelBlock.Models.Home
 
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutNovo.cshtml";
+    ViewBag.Title = "Página inicial";
 }
 
-    <div class="container">
+<div class="container">
+    <div class="row">
         <div class="panel">
             <div class="panel-heading">
                 <h2>Bem vindos ao projeto de Programação visual com C# e Asp.Net MVC5</h2>
             </div>
             <div class="panel-body">
-                <h2>Olá</h2>
                 <p>Esta é a página inicial do projeto da matéria de Programação visual, aplicada pelo professor Matheus Costa Vieira.</p>
                 <p>O objetivo desta matéria é desenvolver aplicações web utilizando a linguagem C#, através do framework Asp.Net MVC5.</p>
                 <p>Este projeto conta com um sistema de cadastro, no qual podemos aplicar os conceitos da linguagem no nosso aprendizado.</p>
                 <br />
             </div>
             <div class="panel-info">
-                <p>Você pode usar o menu, localizado no topo da página, para navegar entre as funções do nosso sistema.</p>
+                <p>Você pode usar o menu, localizado na lateral da página, para navegar entre as funções do nosso sistema.</p>
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="x_panel tile fixed_height_320">
+                <div class="x_title">
+                    <h2>Categorias</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <h4>Categorias Cadastradas</h4>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="x_panel tile fixed_height_320 overflow_hidden">
+                <div class="x_title">
+                    <h2>Fornecedores</h2>
+                    
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <h4>Fornecedores Cadastrados</h4>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

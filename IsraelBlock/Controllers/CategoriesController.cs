@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using IsraelBlock.Contexts;
 using IsraelBlock.Models;
 
 namespace IsraelBlock.Controllers
 {
     public class CategoriesController : Controller
     {
+        private readonly EFContextDbContext _context = new EFContextDbContext();
+
         private static IList<Category> categoryList = new List<Category>()
         {
             new Category(){ CategoryId = 1, Name = "Keyboard"},
@@ -21,7 +26,7 @@ namespace IsraelBlock.Controllers
         // GET: Categories
         public ActionResult Index()
         {   
-            return View(categoryList.OrderBy(c => c.Name));
+            return View(_context.Categories.OrderBy(c => c.Name));
         }
 
         #region Create
@@ -34,19 +39,23 @@ namespace IsraelBlock.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Category category)
         {
-            categoryList.Add(category);
-            category.CategoryId =
-                categoryList.Select(m => m.CategoryId).Max() + 1;
+            _context.Categories.Add(category);
+            _context.SaveChanges();
             return RedirectToAction("Index");
         }
         #endregion
 
         #region Details
-        public ActionResult Details(long id)
+        public ActionResult Details(long? id)
         {
-            var category = categoryList
-                .Where(c => c.CategoryId == id)
-                .First();
+            if (!id.HasValue)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var category = _context.Categories.Find(id.Value);
+
+            if (category == null)
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+
             return View(category);
         }
 
@@ -54,11 +63,16 @@ namespace IsraelBlock.Controllers
 
         #region Edit
 
-        public ActionResult Edit(long id)
+        public ActionResult Edit(long? id)
         {
-            var category = categoryList
-                .Where(c => c.CategoryId == id)
-                .First();
+            if (!id.HasValue)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var category = _context.Categories.Find(id.Value);
+
+            if (category == null)
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+
             return View(category);
         }
 
@@ -66,36 +80,43 @@ namespace IsraelBlock.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Category modified)
         {
-            var category = categoryList
-                .Where(c => c.CategoryId == modified.CategoryId)
-                .First();
+            if (ModelState.IsValid)
+            {
+                _context.Entry(modified).State = EntityState.Modified;
+                _context.SaveChanges();
 
-            category.Name = modified.Name;
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+
+            return View(modified);
         }
 
         #endregion
 
         #region Delete
 
-        public ActionResult Delete(long id)
+        public ActionResult Delete(long? id)
         {
-            var category = categoryList
-                .Where(c => c.CategoryId == id)
-                .First();
+            if (!id.HasValue)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var category = _context.Categories.Find(id.Value);
+
+            if (category == null)
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+
             return View(category);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(Category toDelete)
+        public ActionResult Delete(long id)
         {
-            var category = categoryList
-                .Where(c => c.CategoryId == toDelete.CategoryId)
-                .First();
+            var category = _context.Categories.Find(id);
+            _context.Categories.Remove(category);
+            _context.SaveChanges();
 
-            categoryList.Remove(category);
-            return RedirectToAction("Index");
+            return RedirectToAction("index");
         }
 
 

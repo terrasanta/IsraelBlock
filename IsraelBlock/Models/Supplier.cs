@@ -11,5 +11,8 @@ namespace IsraelBlock.Models
         public long SupplierId { get; set; }
         [Required]
         public String Name { get; set; }
+
+        public virtual ICollection<Product> Products { get; set; }
     }
+    
 }

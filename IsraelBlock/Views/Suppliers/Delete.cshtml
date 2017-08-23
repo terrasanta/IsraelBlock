@@ -1,0 +1,44 @@
+﻿@model IsraelBlock.Models.Supplier
+
+@{
+    Layout = "~/Views/Shared/_LayoutNovo.cshtml";
+    ViewBag.Title = "Visualizando detalhes do Fornecedor";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+</head>
+<body>
+    <div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Dados do Fornecedor a ser removido
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name)<br />
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-user">
+                            </i>
+                        </span>
+                        @Html.EditorFor(model => model.Name, new {htmlAttributes = new{@class = "form-control", disabled = "disabled"}})
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer panel-info">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="submit" value="Remover Fornecedor" class="btn btn-danger" />
+                    @Html.ActionLink("Retornar para a listagem","Index", null, new{@class ="btn btn-primary"})
+                }
+            </div>
+        </div>
+    </div>
+</body>
+</html>

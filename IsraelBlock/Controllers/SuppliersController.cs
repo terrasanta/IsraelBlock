@@ -12,7 +12,7 @@ namespace IsraelBlock.Controllers
 {
     public class SuppliersController : Controller
     {
-        private readonly  EFContextDbContext _context = new EFContextDbContext();
+        private readonly EFContextDbContext _context = new EFContextDbContext();
         // GET: Fabricantes
         public ActionResult Index()
         {
@@ -39,12 +39,12 @@ namespace IsraelBlock.Controllers
         {
             if (!id.HasValue)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            
+
             var supplier = _context.Suppliers.Find(id.Value);
 
-            if(supplier == null)
+            if (supplier == null)
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            
+
             return View(supplier);
         }
 
@@ -63,6 +63,50 @@ namespace IsraelBlock.Controllers
         }
         #endregion
 
+        #region Delete
 
+        public ActionResult Delete(long? id)
+        {
+            if (!id.HasValue)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var supplier = _context.Suppliers.Find(id.Value);
+
+            if (supplier == null)
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+
+            return View(supplier);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(long id)
+        {
+            var supplier = _context.Suppliers.Find(id);
+            _context.Suppliers.Remove(supplier);
+            _context.SaveChanges();
+            TempData["Message"] = "Fornecedor " + supplier.Name.ToUpper() + " foi removido";
+
+            return RedirectToAction("index");
+        }
+
+
+        #endregion
+
+        #region Details
+        public ActionResult Details(long? id)
+        {
+            if (!id.HasValue)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var supplier = _context.Suppliers.Find(id.Value);
+
+            if (supplier == null)
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+
+            return View(supplier);
+        }
+
+        #endregion
     }
 }

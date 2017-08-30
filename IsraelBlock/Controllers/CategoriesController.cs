@@ -14,14 +14,14 @@ namespace IsraelBlock.Controllers
     {
         private readonly EFContextDbContext _context = new EFContextDbContext();
 
-        private static IList<Category> categoryList = new List<Category>()
+        /*private static IList<Category> categoryList = new List<Category>()
         {
             new Category(){ CategoryId = 1, Name = "Keyboard"},
             new Category(){ CategoryId = 2, Name = "Monitor"},
             new Category(){ CategoryId = 3, Name = "Notebook"},
             new Category(){ CategoryId = 4, Name = "Mouse"},
             new Category(){ CategoryId = 5, Name = "Printer"}
-        };
+        };*/
 
         // GET: Categories
         public ActionResult Index()
@@ -121,5 +121,16 @@ namespace IsraelBlock.Controllers
 
 
         #endregion
+
+        [HttpPost]
+        public JsonResult GetDados()
+        {
+            var resultado = new
+            {
+                Sup = _context.Categories.OrderBy(c => c.Name)
+            };
+            return Json(resultado);
+        }
+        
     }
 }

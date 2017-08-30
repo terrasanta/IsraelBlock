@@ -14,7 +14,13 @@ namespace IsraelBlock.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            ViewBag.Categorias = _context.Categories.OrderBy(c => c.Name).ToArray();
+            ViewBag.Fornecedores = _context.Suppliers.OrderBy(c => c.Name).ToArray();
+            ViewBag.Produtos = _context.Products.OrderBy(n => n.Name).ToArray();
+
             return View();
+
+            //return View();
         }
     }
 }

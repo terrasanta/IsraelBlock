@@ -16,7 +16,11 @@ namespace IsraelBlock.Controllers
         // GET: Products
         public ActionResult Index()
         {
-            var products = _context.Products.Include(c => c.Category).Include(s => s.Supplier).OrderBy(n => n.Name);
+            var products = _context
+                .Products
+                .Include(c => c.Category)
+                .Include(s => s.Supplier)
+                .OrderBy(n => n.Name);
             return View(products);
         }
 
@@ -26,7 +30,12 @@ namespace IsraelBlock.Controllers
             if (!id.HasValue)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var product = _context.Products.Where(p => p.ProductId == id).Include(c => c.Category).Include(s => s.Supplier).First();
+            var product = _context
+                .Products
+                .Where(p => p.ProductId == id)
+                .Include(c => c.Category)
+                .Include(s => s.Supplier)
+                .First();
 
             if (product == null)
                 return HttpNotFound();
@@ -37,8 +46,20 @@ namespace IsraelBlock.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
-            ViewBag.CategoryId = new SelectList(_context.Categories.OrderBy(c => c.Name), "CategoryId", "Name");
-            ViewBag.SupplierId = new SelectList(_context.Suppliers.OrderBy(s => s.Name), "SupplierId", "Name");
+            ViewBag.CategoryId = 
+                new SelectList(
+                    _context.
+                    Categories.
+                    OrderBy(c => c.Name), 
+                        "CategoryId", "Name"
+                    );
+            ViewBag.SupplierId = 
+                new SelectList(
+                    _context
+                    .Suppliers
+                    .OrderBy(s => s.Name), 
+                        "SupplierId", "Name"
+                    );
             return View();
         }
 
@@ -103,7 +124,12 @@ namespace IsraelBlock.Controllers
             if (!id.HasValue)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var product = _context.Products.Where(p => p.ProductId == id).Include(c => c.Category).Include(s => s.Supplier).First();
+            var product = _context
+                .Products
+                .Where(p => p.ProductId == id)
+                .Include(c => c.Category)
+                .Include(s => s.Supplier)
+                .First();
 
             if (product == null)
                 return HttpNotFound();
@@ -129,6 +155,16 @@ namespace IsraelBlock.Controllers
             {
                 return View();
             }
+        }
+
+        [HttpPost]
+        public JsonResult GetDados()
+        {
+            var resultado = new
+            {
+                Sup = _context.Products.OrderBy(p => p.Name)
+            };
+            return Json(resultado);
         }
     }
 }

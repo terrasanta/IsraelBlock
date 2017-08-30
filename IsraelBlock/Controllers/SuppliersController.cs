@@ -80,15 +80,46 @@ namespace IsraelBlock.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(long id)
+        public ActionResult Delete(Supplier supplier)
         {
-            var supplier = _context.Suppliers.Find(id);
-            _context.Suppliers.Remove(supplier);
-            _context.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                var s = _context.Suppliers.Find(supplier.SupplierId);
+
+                if(supplier == null)
+                    return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+
+                _context.Suppliers.Remove(s);
+
+                _context.SaveChanges();
+
+                TempData["Message"] = "Fornecedor " + supplier.Name.ToUpper() + " foi removido";
+
+                return RedirectToAction("index");
+            }
+            return View();
+        }
+
+        /**
+         public ActionResult Delete(long id)
+        {
+            var supplier = 
+                _context
+                .Suppliers
+                .Find(id);
+
+            _context
+                .Suppliers
+                .Remove(supplier);
+
+            _context
+                .SaveChanges();
+
             TempData["Message"] = "Fornecedor " + supplier.Name.ToUpper() + " foi removido";
 
             return RedirectToAction("index");
         }
+             */
 
 
         #endregion
@@ -108,5 +139,15 @@ namespace IsraelBlock.Controllers
         }
 
         #endregion
+        [HttpPost]
+        public JsonResult GetDados()
+        {
+            var resultado = new
+            {
+                Sup = _context.Suppliers.OrderBy(s => s.Name)
+            };
+            return Json(resultado);
+        }
+        
     }
 }

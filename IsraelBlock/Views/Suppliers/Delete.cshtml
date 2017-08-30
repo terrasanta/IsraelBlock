@@ -5,40 +5,70 @@
     ViewBag.Title = "Visualizando detalhes do Fornecedor";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Delete</title>
-</head>
-<body>
-    <div>
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                Dados do Fornecedor a ser removido
-            </div>
-            <div class="panel-body">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Name)<br />
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="glyphicon glyphicon-user">
-                            </i>
-                        </span>
-                        @Html.EditorFor(model => model.Name, new {htmlAttributes = new{@class = "form-control", disabled = "disabled"}})
-                    </div>
+<div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Dados do Fornecedor a ser removido
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name)<br />
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-user">
+                        </i>
+                    </span>
+                    @Html.EditorFor(model => model.Name, new {htmlAttributes = new{@class = "form-control", disabled = "disabled"}})
                 </div>
             </div>
-            <div class="panel-footer panel-info">
-                @using (Html.BeginForm())
+        </div>
+        <div class="panel-footer panel-info">
+            <a href="#" class="btn btn-info" data-toggle="modal"
+               data-target="#deleteConfirmationModal">Remover</a>
+                @Html.ActionLink("Retornar para a listagem","Index", null, new{@class ="btn btn-primary"})
+           
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1"
+     role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-ELTEismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                    Confirmação de exclusão de Fornecedor
+                </h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Você está prestes a remover o produto @Model.Name.ToUpper() do cadastro.
+                </p>
+                <p>
+                    <strong>
+                        Você está certo que deseja prosseguir?
+                    </strong>
+                </p>
+                @using (Html.BeginForm("Delete", "Suppliers", FormMethod.Post, new { @id = "delete-form", role = "form" }))
                 {
+                    @Html.HiddenFor(m => m.SupplierId)
                     @Html.AntiForgeryToken()
-                    <input type="submit" value="Remover Fornecedor" class="btn btn-danger" />
-                    @Html.ActionLink("Retornar para a listagem","Index", null, new{@class ="btn btn-primary"})
+                    @Html.HiddenFor(model => model.SupplierId)
+                    @Html.HiddenFor(model => model.Name)
                 }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        onclick="$('#delete-form').submit();">
+                    Sim, exclua este fornecedor.
+                </button>
+                <button type="button" class="btn btn-primary"
+                        data-dismiss="modal">
+                    Não, não exclua este fornecedor.
+                </button>
             </div>
         </div>
     </div>
-</body>
-</html>
+</div>

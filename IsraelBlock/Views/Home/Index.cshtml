@@ -4,7 +4,63 @@
     Layout = "~/Views/Shared/_LayoutNovo.cshtml";
     ViewBag.Title = "Página inicial";
 }
+<script src="~/Scripts/jquery-3.1.1.js"></script>
+<script>
+    $(document).ready(function ()
+    {
+        /*$.ajax(
+            {
+            dataType: "json",
+            type: "POST",
+            url: "/Suppliers/GetDados",
+            success: function (dados)
+            {
+                var sup = "";
+                for (var i in dados) {
+                    for (var j in dados[i]) {
+                        console.log(dados[i][j]);
+                        sup += dados[i][j].Name + "<br>";
+                    }
+                }
+                $("#supplier-list").append(sup);
+            }
+            });
 
+        $.ajax(
+            {
+                dataType: "json",
+                type: "POST",
+                url: "/Categories/GetDados",
+                success: function (dados) {
+                    var sup = "";
+                    for (var i in dados) {
+                        for (var j in dados[i]) {
+                            console.log(dados[i][j]);
+                            sup += dados[i][j].Name + "<br>";
+                        }
+                    }
+                    $("#category-list").append(sup);
+                }
+            });
+
+        $.ajax(
+            {
+                dataType: "json",
+                type: "POST",
+                url: "/Products/GetDados",
+                success: function (dados) {
+                    var sup = "";
+                    for (var i in dados) {
+                        for (var j in dados[i]) {
+                            console.log(dados[i][j]);
+                            sup += dados[i][j].Name + "<br>";
+                        }
+                    }
+                    $("#product-list").append(sup);
+                }
+            });*/
+    });
+</script>
 <div class="container">
     <div class="row">
         <div class="panel">
@@ -23,28 +79,47 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="col-md-4 col-sm-4 col-xs-12">
             <div class="x_panel tile fixed_height_320">
                 <div class="x_title">
-                    <h2>Categorias</h2>
+                    <h2><a href="@Url.Action("Index", "Categories")"> Categorias </a></h2>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <h4>Categorias Cadastradas</h4>
-                    
+                    @foreach (var item in ViewBag.Categorias)
+                    {
+                        <div><a href="@Url.Action("Details", "Categories", new { id = item.CategoryId })"> @item.Name </a></div>
+                    }
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="col-md-4 col-sm-4 col-xs-12">
             <div class="x_panel tile fixed_height_320 overflow_hidden">
                 <div class="x_title">
-                    <h2>Fornecedores</h2>
+                    <h2><a href="@Url.Action("Index", "Suppliers")">Fornecedores</a></h2>
                     
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <h4>Fornecedores Cadastrados</h4>
-                    
+                    @foreach (var item in ViewBag.Fornecedores)
+                    {
+                        <div><a href="@Url.Action("Details", "Suppliers", new { id = item.SupplierId })"> @item.Name </a></div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="x_panel tile fixed_height_320 overflow_hidden">
+                <div class="x_title">
+                    <h2><a href="@Url.Action("Index", "Products")">Produtos</a></h2>
+
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    @foreach (var item in ViewBag.Produtos)
+                    {
+                        <div><a href="@Url.Action("Details", "Products", new { id = item.ProductId })"> @item.Name </a></div>
+                    }
                 </div>
             </div>
         </div>

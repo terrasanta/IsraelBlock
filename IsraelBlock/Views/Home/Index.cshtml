@@ -118,7 +118,9 @@
                 <div class="x_content">
                     @foreach (var item in ViewBag.Produtos)
                     {
-                        <div><a href="@Url.Action("Details", "Products", new { id = item.ProductId })"> @item.Name </a></div>
+                        <div>
+                            <a href="@Url.Action("Details", "Products", new { id = item.ProductId })"> @item.Name </a> | <a href="@Url.Action("Details", "Products", new { id = item.ProductId })"> @item.Supplier.Name </a>
+                        </div>
                     }
                 </div>
             </div>

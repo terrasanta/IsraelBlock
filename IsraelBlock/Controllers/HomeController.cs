@@ -22,5 +22,15 @@ namespace IsraelBlock.Controllers
 
             //return View();
         }
+
+        public JsonResult Data()
+        {
+            var ret = new {
+                Categorias = _context.Categories.OrderBy(c => c.Name).ToArray(),
+                Fornecedores = _context.Suppliers.OrderBy(c => c.Name).ToArray(),
+                Produtos = _context.Products.OrderBy(n => n.Name).ToArray()
+            };
+            return Json(ret);
+        }
     }
 }

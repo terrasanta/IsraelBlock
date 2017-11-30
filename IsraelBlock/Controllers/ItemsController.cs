@@ -30,7 +30,7 @@ namespace WebTeste.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.ProductId = new SelectList(_context.Products.Where(p => p.Active == "S"), "ProductId", "Nome", item.ProductId);
+            ViewBag.ProductId = new SelectList(_context.Products.Where(p => p.Active == "S"), "ProductId", "Name", item.ProductId);
             ViewBag.SaleId = new SelectList(_context.Sales, "SaleId", "SaleId", item.SaleId);
             return View(item);
         }

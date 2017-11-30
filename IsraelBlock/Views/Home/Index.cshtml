@@ -63,8 +63,7 @@
                     {
                         <div>
                             <a href="@Url.Action("Details", "Products", new { id = item.ProductId })"> @item.Name </a> | 
-                            <a href="@Url.Action("Details", "Products", new { id = item.ProductId })"> @item.Supplier.Name </a> | 
-                            <a href="@Url.Action("Details", "Products", new { id = item.ProductId })">R$ @item.Price </a>
+                            <a href="@Url.Action("Details", "Products", new { id = item.ProductId })"> @item.Supplier.Name </a> 
                         </div>
                     }
                 </div>

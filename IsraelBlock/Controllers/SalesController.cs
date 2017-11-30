@@ -29,6 +29,7 @@ namespace WebTeste.Controllers
             {
                 return HttpNotFound();
             }
+            
             return View(sale);
         }
 

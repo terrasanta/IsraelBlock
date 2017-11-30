@@ -1,7 +1,6 @@
 "use strict";
 
-module.exports = function(Chart) {
-
+module.exports = function (Chart) {
 	var helpers = Chart.helpers,
 		globalOpts = Chart.defaults.global;
 
@@ -13,7 +12,7 @@ module.exports = function(Chart) {
 	};
 
 	Chart.elements.Rectangle = Chart.Element.extend({
-		draw: function() {
+		draw: function () {
 			var ctx = this._chart.ctx;
 			var vm = this._view;
 
@@ -46,7 +45,7 @@ module.exports = function(Chart) {
 				[rightX, vm.base]
 			];
 
-			// Find first (starting) corner with fallback to 'bottom' 
+			// Find first (starting) corner with fallback to 'bottom'
 			var borders = ['bottom', 'left', 'top', 'right'];
 			var startCorner = borders.indexOf(vm.borderSkipped, 0);
 			if (startCorner === -1)
@@ -66,23 +65,23 @@ module.exports = function(Chart) {
 				ctx.stroke();
 			}
 		},
-		height: function() {
+		height: function () {
 			var vm = this._view;
 			return vm.base - vm.y;
 		},
-		inRange: function(mouseX, mouseY) {
+		inRange: function (mouseX, mouseY) {
 			var vm = this._view;
-			return vm ? 
-					(vm.y < vm.base ? 
-						(mouseX >= vm.x - vm.width / 2 && mouseX <= vm.x + vm.width / 2) && (mouseY >= vm.y && mouseY <= vm.base) :
-						(mouseX >= vm.x - vm.width / 2 && mouseX <= vm.x + vm.width / 2) && (mouseY >= vm.base && mouseY <= vm.y)) :
-					false;
+			return vm ?
+				(vm.y < vm.base ?
+					(mouseX >= vm.x - vm.width / 2 && mouseX <= vm.x + vm.width / 2) && (mouseY >= vm.y && mouseY <= vm.base) :
+					(mouseX >= vm.x - vm.width / 2 && mouseX <= vm.x + vm.width / 2) && (mouseY >= vm.base && mouseY <= vm.y)) :
+				false;
 		},
-		inLabelRange: function(mouseX) {
+		inLabelRange: function (mouseX) {
 			var vm = this._view;
 			return vm ? (mouseX >= vm.x - vm.width / 2 && mouseX <= vm.x + vm.width / 2) : false;
 		},
-		tooltipPosition: function() {
+		tooltipPosition: function () {
 			var vm = this._view;
 			return {
 				x: vm.x,
@@ -90,5 +89,4 @@ module.exports = function(Chart) {
 			};
 		}
 	});
-
 };

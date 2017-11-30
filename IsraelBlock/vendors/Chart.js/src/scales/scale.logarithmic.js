@@ -1,7 +1,6 @@
 "use strict";
 
-module.exports = function(Chart) {
-
+module.exports = function (Chart) {
 	var helpers = Chart.helpers;
 
 	var defaultConfig = {
@@ -9,7 +8,7 @@ module.exports = function(Chart) {
 
 		// label settings
 		ticks: {
-			callback: function(value, index, arr) {
+			callback: function (value, index, arr) {
 				var remain = value / (Math.pow(10, Math.floor(helpers.log10(value))));
 
 				if (remain === 1 || remain === 2 || remain === 5 || index === 0 || index === arr.length - 1) {
@@ -22,7 +21,7 @@ module.exports = function(Chart) {
 	};
 
 	var LogarithmicScale = Chart.Scale.extend({
-		determineDataLimits: function() {
+		determineDataLimits: function () {
 			var _this = this;
 			var opts = _this.options;
 			var tickOpts = opts.ticks;
@@ -42,14 +41,14 @@ module.exports = function(Chart) {
 			if (opts.stacked) {
 				var valuesPerType = {};
 
-				helpers.each(datasets, function(dataset, datasetIndex) {
+				helpers.each(datasets, function (dataset, datasetIndex) {
 					var meta = chart.getDatasetMeta(datasetIndex);
 					if (chart.isDatasetVisible(datasetIndex) && IDMatches(meta)) {
 						if (valuesPerType[meta.type] === undefined) {
 							valuesPerType[meta.type] = [];
 						}
 
-						helpers.each(dataset.data, function(rawValue, index) {
+						helpers.each(dataset.data, function (rawValue, index) {
 							var values = valuesPerType[meta.type];
 							var value = +_this.getRightValue(rawValue);
 							if (isNaN(value) || meta.data[index].hidden) {
@@ -68,18 +67,17 @@ module.exports = function(Chart) {
 					}
 				});
 
-				helpers.each(valuesPerType, function(valuesForType) {
+				helpers.each(valuesPerType, function (valuesForType) {
 					var minVal = helpers.min(valuesForType);
 					var maxVal = helpers.max(valuesForType);
 					_this.min = _this.min === null ? minVal : Math.min(_this.min, minVal);
 					_this.max = _this.max === null ? maxVal : Math.max(_this.max, maxVal);
 				});
-
 			} else {
-				helpers.each(datasets, function(dataset, datasetIndex) {
+				helpers.each(datasets, function (dataset, datasetIndex) {
 					var meta = chart.getDatasetMeta(datasetIndex);
 					if (chart.isDatasetVisible(datasetIndex) && IDMatches(meta)) {
-						helpers.each(dataset.data, function(rawValue, index) {
+						helpers.each(dataset.data, function (rawValue, index) {
 							var value = +_this.getRightValue(rawValue);
 							if (isNaN(value) || meta.data[index].hidden) {
 								return;
@@ -114,7 +112,7 @@ module.exports = function(Chart) {
 				}
 			}
 		},
-		buildTicks: function() {
+		buildTicks: function () {
 			var _this = this;
 			var opts = _this.options;
 			var tickOpts = opts.ticks;
@@ -168,19 +166,19 @@ module.exports = function(Chart) {
 				_this.end = _this.max;
 			}
 		},
-		convertTicksToLabels: function() {
+		convertTicksToLabels: function () {
 			this.tickValues = this.ticks.slice();
 
 			Chart.Scale.prototype.convertTicksToLabels.call(this);
 		},
 		// Get the correct tooltip label
-		getLabelForIndex: function(index, datasetIndex) {
+		getLabelForIndex: function (index, datasetIndex) {
 			return +this.getRightValue(this.chart.data.datasets[datasetIndex].data[index]);
 		},
-		getPixelForTick: function(index, includeOffset) {
+		getPixelForTick: function (index, includeOffset) {
 			return this.getPixelForValue(this.tickValues[index], null, null, includeOffset);
 		},
-		getPixelForValue: function(value, index, datasetIndex, includeOffset) {
+		getPixelForValue: function (value, index, datasetIndex, includeOffset) {
 			var _this = this;
 			var innerDimension;
 			var pixel;
@@ -193,7 +191,6 @@ module.exports = function(Chart) {
 			var paddingLeft = _this.paddingLeft;
 
 			if (_this.isHorizontal()) {
-
 				if (newVal === 0) {
 					pixel = _this.left + paddingLeft;
 				} else {
@@ -213,7 +210,7 @@ module.exports = function(Chart) {
 
 			return pixel;
 		},
-		getValueForPixel: function(pixel) {
+		getValueForPixel: function (pixel) {
 			var _this = this;
 			var offset;
 			var range = helpers.log10(_this.end) - helpers.log10(_this.start);
@@ -232,5 +229,4 @@ module.exports = function(Chart) {
 		}
 	});
 	Chart.scaleService.registerScaleType("logarithmic", LogarithmicScale, defaultConfig);
-
 };

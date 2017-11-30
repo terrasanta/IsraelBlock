@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using IsraelBlock.Contexts;
 using IsraelBlock.Models;
@@ -13,12 +10,15 @@ namespace IsraelBlock.Controllers
     public class SuppliersController : Controller
     {
         private readonly EFContextDbContext _context = new EFContextDbContext();
+
         // GET: Fabricantes
         public ActionResult Index()
         {
             return View(_context.Suppliers.OrderBy(s => s.Name));
         }
+
         #region Create
+
         public ActionResult Create()
         {
             return View();
@@ -32,9 +32,11 @@ namespace IsraelBlock.Controllers
             _context.SaveChanges();
             return RedirectToAction("index");
         }
-        #endregion
+
+        #endregion Create
 
         #region Edit
+
         public ActionResult Edit(long? id)
         {
             if (!id.HasValue)
@@ -61,7 +63,8 @@ namespace IsraelBlock.Controllers
             }
             return View(supplier);
         }
-        #endregion
+
+        #endregion Edit
 
         #region Delete
 
@@ -86,7 +89,7 @@ namespace IsraelBlock.Controllers
             {
                 var s = _context.Suppliers.Find(supplier.SupplierId);
 
-                if(supplier == null)
+                if (supplier == null)
                     return new HttpStatusCodeResult(HttpStatusCode.NotFound);
 
                 _context.Suppliers.Remove(s);
@@ -103,7 +106,7 @@ namespace IsraelBlock.Controllers
         /**
          public ActionResult Delete(long id)
         {
-            var supplier = 
+            var supplier =
                 _context
                 .Suppliers
                 .Find(id);
@@ -121,10 +124,10 @@ namespace IsraelBlock.Controllers
         }
              */
 
-
-        #endregion
+        #endregion Delete
 
         #region Details
+
         public ActionResult Details(long? id)
         {
             if (!id.HasValue)
@@ -138,7 +141,8 @@ namespace IsraelBlock.Controllers
             return View(supplier);
         }
 
-        #endregion
+        #endregion Details
+
         [HttpPost]
         public JsonResult GetDados()
         {
@@ -148,6 +152,5 @@ namespace IsraelBlock.Controllers
             };
             return Json(resultado);
         }
-        
     }
 }

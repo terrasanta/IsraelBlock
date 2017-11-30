@@ -1,14 +1,14 @@
 // Tests of the scale service
-describe('Test the layout service', function() {
-	beforeEach(function() {
+describe('Test the layout service', function () {
+	beforeEach(function () {
 		window.addDefaultMatchers(jasmine);
 	});
 
-	afterEach(function() {
+	afterEach(function () {
 		window.releaseAllCharts();
 	});
 
-	it('should fit a simple chart with 2 scales', function() {
+	it('should fit a simple chart with 2 scales', function () {
 		var chart = window.acquireChart({
 			type: 'bar',
 			data: {
@@ -30,9 +30,9 @@ describe('Test the layout service', function() {
 				}
 			}
 		}, {
-			height: '150px',
-			width: '250px'
-		});
+				height: '150px',
+				width: '250px'
+			});
 
 		expect(chart.chartArea.bottom).toBeCloseToPixel(112);
 		expect(chart.chartArea.left).toBeCloseToPixel(41);
@@ -54,7 +54,7 @@ describe('Test the layout service', function() {
 		expect(chart.scales.yScale.labelRotation).toBeCloseTo(0);
 	});
 
-	it('should fit scales that are in the top and right positions', function() {
+	it('should fit scales that are in the top and right positions', function () {
 		var chart = window.acquireChart({
 			type: 'bar',
 			data: {
@@ -78,9 +78,9 @@ describe('Test the layout service', function() {
 				}
 			}
 		}, {
-			height: '150px',
-			width: '250px'
-		});
+				height: '150px',
+				width: '250px'
+			});
 
 		expect(chart.chartArea.bottom).toBeCloseToPixel(150);
 		expect(chart.chartArea.left).toBeCloseToPixel(0);
@@ -102,7 +102,7 @@ describe('Test the layout service', function() {
 		expect(chart.scales.yScale.labelRotation).toBeCloseTo(0);
 	});
 
-	it('should fit scales that overlap the chart area', function() {
+	it('should fit scales that overlap the chart area', function () {
 		var chart = window.acquireChart({
 			type: 'radar',
 			data: {
@@ -128,7 +128,7 @@ describe('Test the layout service', function() {
 		expect(chart.scale.height).toBeCloseToPixel(480)
 	});
 
-	it('should fit multiple axes in the same position', function() {
+	it('should fit multiple axes in the same position', function () {
 		var chart = window.acquireChart({
 			type: 'bar',
 			data: {
@@ -157,9 +157,9 @@ describe('Test the layout service', function() {
 				}
 			}
 		}, {
-			height: '150px',
-			width: '250px'
-		});
+				height: '150px',
+				width: '250px'
+			});
 
 		expect(chart.chartArea.bottom).toBeCloseToPixel(102);
 		expect(chart.chartArea.left).toBeCloseToPixel(86);
@@ -187,7 +187,7 @@ describe('Test the layout service', function() {
 		expect(chart.scales.yScale2.labelRotation).toBeCloseTo(0);
 	});
 
-	it ('should fix a full width box correctly', function() {
+	it('should fix a full width box correctly', function () {
 		var chart = window.acquireChart({
 			type: 'bar',
 			data: {

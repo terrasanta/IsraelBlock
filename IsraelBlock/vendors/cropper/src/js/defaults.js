@@ -1,5 +1,4 @@
-  Cropper.DEFAULTS = {
-
+Cropper.DEFAULTS = {
     // Define the view mode of the cropper
     viewMode: 0, // 0, 1, 2, 3
 
@@ -94,8 +93,8 @@
     cropend: null,
     crop: null,
     zoom: null
-  };
+};
 
-  Cropper.setDefaults = function (options) {
+Cropper.setDefaults = function (options) {
     $.extend(Cropper.DEFAULTS, options);
-  };
+};

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using IsraelBlock.Contexts;
 using IsraelBlock.Models;
@@ -14,22 +11,14 @@ namespace IsraelBlock.Controllers
     {
         private readonly EFContextDbContext _context = new EFContextDbContext();
 
-        /*private static IList<Category> categoryList = new List<Category>()
-        {
-            new Category(){ CategoryId = 1, Name = "Keyboard"},
-            new Category(){ CategoryId = 2, Name = "Monitor"},
-            new Category(){ CategoryId = 3, Name = "Notebook"},
-            new Category(){ CategoryId = 4, Name = "Mouse"},
-            new Category(){ CategoryId = 5, Name = "Printer"}
-        };*/
-
         // GET: Categories
         public ActionResult Index()
-        {   
+        {
             return View(_context.Categories.OrderBy(c => c.Name));
         }
 
         #region Create
+
         public ActionResult Create()
         {
             return View();
@@ -43,15 +32,21 @@ namespace IsraelBlock.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
-        #endregion
+
+        #endregion Create
 
         #region Details
+
         public ActionResult Details(long? id)
         {
             if (!id.HasValue)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var category = _context.Categories.Find(id.Value);
+            var category = _context
+                .Categories
+                .Where(c => c.CategoryId == id)
+                .Include("Products.Supplier")
+                .First();
 
             if (category == null)
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
@@ -59,7 +54,7 @@ namespace IsraelBlock.Controllers
             return View(category);
         }
 
-        #endregion
+        #endregion Details
 
         #region Edit
 
@@ -91,7 +86,7 @@ namespace IsraelBlock.Controllers
             return View(modified);
         }
 
-        #endregion
+        #endregion Edit
 
         #region Delete
 
@@ -119,8 +114,7 @@ namespace IsraelBlock.Controllers
             return RedirectToAction("index");
         }
 
-
-        #endregion
+        #endregion Delete
 
         [HttpPost]
         public JsonResult GetDados()
@@ -131,6 +125,5 @@ namespace IsraelBlock.Controllers
             };
             return Json(resultado);
         }
-        
     }
 }

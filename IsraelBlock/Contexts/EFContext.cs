@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
+﻿using System.Data.Entity;
+using IsraelBlock.Migrations;
 using IsraelBlock.Models;
-using System.Data.Entity;
 
 namespace IsraelBlock.Contexts
 {
@@ -12,10 +8,28 @@ namespace IsraelBlock.Contexts
     {
         public EFContextDbContext() : base("Asp_Net_MVC_CS")
         {
-            Database.SetInitializer<EFContextDbContext>(new DropCreateDatabaseIfModelChanges<EFContextDbContext>());
+            Database.SetInitializer<EFContextDbContext>(new MigrateDatabaseToLatestVersion<EFContextDbContext, Configuration>());
         }
+
         public DbSet<Category> Categories { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Sale> Sales { get; set; }
+        public DbSet<Item> Items { get; set; }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+          /*  modelBuilder.HasDefaultSchema("AULA_ASP");
+
+            modelBuilder.Entity<Category>().Property(x => x.Name).HasColumnType("varchar2");
+            modelBuilder.Entity<Supplier>().Property(x => x.Name).HasColumnType("varchar2");
+            modelBuilder.Entity<Product>().Property(x => x.Name).HasColumnType("varchar2");
+            modelBuilder.Entity<Sale>().Property(x => x.ClientName).HasColumnType("varchar2");
+            modelBuilder.Entity<Sale>().Property(x => x.ClientEmail).HasColumnType("varchar2");
+            modelBuilder.Entity<Sale>().Property(x => x.ClientPhone).HasColumnType("varchar2");
+            modelBuilder.Entity<Sale>().Property(x => x.ClientAddress).HasColumnType("varchar2");
+            modelBuilder.Entity<PaymentType>().Property(x => x.NamePaymenttype).HasColumnType("varchar2");
+
+            base.OnModelCreating(modelBuilder);*/
+        }
     }
 }

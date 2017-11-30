@@ -1,6 +1,6 @@
 // Test the bubble chart default config
-describe("Test the bubble chart default config", function() {
-	it('should reutrn correct tooltip strings', function() {
+describe("Test the bubble chart default config", function () {
+	it('should reutrn correct tooltip strings', function () {
 		var config = Chart.defaults.bubble;
 
 		// Title is always blank
@@ -27,8 +27,8 @@ describe("Test the bubble chart default config", function() {
 	});
 });
 
-describe('Test the doughnut chart default config', function() {
-	it('should return correct tooltip strings', function() {
+describe('Test the doughnut chart default config', function () {
+	it('should return correct tooltip strings', function () {
 		var config = Chart.defaults.doughnut;
 
 		// Title is always blank
@@ -50,7 +50,7 @@ describe('Test the doughnut chart default config', function() {
 		expect(config.tooltips.callbacks.label(tooltipItem, data)).toBe('label2: 20');
 	});
 
-	it('should return the correct html legend', function() {
+	it('should return the correct html legend', function () {
 		var config = Chart.defaults.doughnut;
 
 		var chart = {
@@ -68,7 +68,7 @@ describe('Test the doughnut chart default config', function() {
 		expect(config.legendCallback(chart)).toBe(expectedLegend);
 	});
 
-	it('should return correct legend label objects', function() {
+	it('should return correct legend label objects', function () {
 		var config = Chart.defaults.doughnut;
 		var data = {
 			labels: ['label1', 'label2', 'label3'],
@@ -116,7 +116,7 @@ describe('Test the doughnut chart default config', function() {
 		expect(config.legend.labels.generateLabels.call({ chart: chart }, data)).toEqual(expected);
 	});
 
-	it('should hide the correct arc when a legend item is clicked', function() {
+	it('should hide the correct arc when a legend item is clicked', function () {
 		var config = Chart.defaults.doughnut;
 
 		var legendItem = {
@@ -134,7 +134,7 @@ describe('Test the doughnut chart default config', function() {
 					backgroundColor: ['red', 'green', 'blue']
 				}]
 			},
-			update: function() {}
+			update: function () { }
 		};
 
 		spyOn(chart, 'update');
@@ -159,8 +159,8 @@ describe('Test the doughnut chart default config', function() {
 	});
 });
 
-describe('Test the polar area chart default config', function() {
-	it('should return correct tooltip strings', function() {
+describe('Test the polar area chart default config', function () {
+	it('should return correct tooltip strings', function () {
 		var config = Chart.defaults.polarArea;
 
 		// Title is always blank
@@ -183,7 +183,7 @@ describe('Test the polar area chart default config', function() {
 		expect(config.tooltips.callbacks.label(tooltipItem, data)).toBe('label2: 20');
 	});
 
-	it('should return the correct html legend', function() {
+	it('should return the correct html legend', function () {
 		var config = Chart.defaults.polarArea;
 
 		var chart = {
@@ -201,7 +201,7 @@ describe('Test the polar area chart default config', function() {
 		expect(config.legendCallback(chart)).toBe(expectedLegend);
 	});
 
-	it('should return correct legend label objects', function() {
+	it('should return correct legend label objects', function () {
 		var config = Chart.defaults.polarArea;
 		var data = {
 			labels: ['label1', 'label2', 'label3'],
@@ -249,7 +249,7 @@ describe('Test the polar area chart default config', function() {
 		expect(config.legend.labels.generateLabels.call({ chart: chart }, data)).toEqual(expected);
 	});
 
-	it('should hide the correct arc when a legend item is clicked', function() {
+	it('should hide the correct arc when a legend item is clicked', function () {
 		var config = Chart.defaults.polarArea;
 
 		var legendItem = {
@@ -267,7 +267,7 @@ describe('Test the polar area chart default config', function() {
 					backgroundColor: ['red', 'green', 'blue']
 				}]
 			},
-			update: function() {}
+			update: function () { }
 		};
 
 		spyOn(chart, 'update');

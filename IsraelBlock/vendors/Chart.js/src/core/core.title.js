@@ -1,7 +1,6 @@
 "use strict";
 
-module.exports = function(Chart) {
-
+module.exports = function (Chart) {
 	var helpers = Chart.helpers;
 
 	Chart.defaults.global.title = {
@@ -18,8 +17,7 @@ module.exports = function(Chart) {
 
 	var noop = helpers.noop;
 	Chart.Title = Chart.Element.extend({
-
-		initialize: function(config) {
+		initialize: function (config) {
 			helpers.extend(this, config);
 			this.options = helpers.configMerge(Chart.defaults.global.title, config.options);
 
@@ -30,8 +28,7 @@ module.exports = function(Chart) {
 		// These methods are ordered by lifecyle. Utilities then follow.
 
 		beforeUpdate: noop,
-		update: function(maxWidth, maxHeight, margins) {
-
+		update: function (maxWidth, maxHeight, margins) {
 			// Update Lifecycle - Probably don't want to ever extend or overwrite this function ;)
 			this.beforeUpdate();
 
@@ -57,14 +54,13 @@ module.exports = function(Chart) {
 			this.afterUpdate();
 
 			return this.minSize;
-
 		},
 		afterUpdate: noop,
 
 		//
 
 		beforeSetDimensions: noop,
-		setDimensions: function() {
+		setDimensions: function () {
 			// Set the unconstrained dimension before label rotation
 			if (this.isHorizontal()) {
 				// Reset position before calculating rotation
@@ -102,8 +98,7 @@ module.exports = function(Chart) {
 		//
 
 		beforeFit: noop,
-		fit: function() {
-
+		fit: function () {
 			var _this = this,
 				ctx = _this.ctx,
 				valueOrDefault = helpers.getValueOrDefault,
@@ -123,18 +118,17 @@ module.exports = function(Chart) {
 
 			_this.width = minSize.width;
 			_this.height = minSize.height;
-
 		},
 		afterFit: noop,
 
 		// Shared Methods
-		isHorizontal: function() {
+		isHorizontal: function () {
 			var pos = this.options.position;
 			return pos === "top" || pos === "bottom";
 		},
 
 		// Actualy draw the title block on the canvas
-		draw: function() {
+		draw: function () {
 			var _this = this,
 				ctx = _this.ctx,
 				valueOrDefault = helpers.getValueOrDefault,
@@ -147,7 +141,7 @@ module.exports = function(Chart) {
 					fontFamily = valueOrDefault(opts.fontFamily, globalDefaults.defaultFontFamily),
 					titleFont = helpers.fontString(fontSize, fontStyle, fontFamily),
 					rotation = 0,
-					titleX, 
+					titleX,
 					titleY,
 					top = _this.top,
 					left = _this.left,

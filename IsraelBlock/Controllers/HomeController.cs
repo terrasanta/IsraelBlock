@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using IsraelBlock.Contexts;
-using IsraelBlock.Models;
 
 namespace IsraelBlock.Controllers
 {
     public class HomeController : Controller
     {
         private readonly EFContextDbContext _context = new EFContextDbContext();
+
         // GET: Home
         public ActionResult Index()
         {
@@ -25,7 +22,8 @@ namespace IsraelBlock.Controllers
 
         public JsonResult Data()
         {
-            var ret = new {
+            var ret = new
+            {
                 Categorias = _context.Categories.OrderBy(c => c.Name).ToArray(),
                 Fornecedores = _context.Suppliers.OrderBy(c => c.Name).ToArray(),
                 Produtos = _context.Products.OrderBy(n => n.Name).ToArray()

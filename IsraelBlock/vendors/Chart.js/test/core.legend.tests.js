@@ -1,20 +1,19 @@
 // Test the rectangle element
-describe('Legend block tests', function() {
-
-	beforeEach(function() {
+describe('Legend block tests', function () {
+	beforeEach(function () {
 		window.addDefaultMatchers(jasmine);
 	});
 
-	afterEach(function() {
+	afterEach(function () {
 		window.releaseAllCharts();
 	});
 
-	it('Should be constructed', function() {
+	it('Should be constructed', function () {
 		var legend = new Chart.Legend({});
 		expect(legend).not.toBe(undefined);
 	});
 
-	it('should have the correct default config', function() {
+	it('should have the correct default config', function () {
 		expect(Chart.defaults.global.legend).toEqual({
 			display: true,
 			position: 'top',
@@ -32,7 +31,7 @@ describe('Legend block tests', function() {
 		});
 	});
 
-	it('should update correctly', function() {
+	it('should update correctly', function () {
 		var chart = window.acquireChart({
 			type: 'bar',
 			data: {
@@ -94,7 +93,7 @@ describe('Legend block tests', function() {
 		}]);
 	});
 
-	it('should draw correctly', function() {
+	it('should draw correctly', function () {
 		var chart = window.acquireChart({
 			type: 'bar',
 			data: {
@@ -122,10 +121,10 @@ describe('Legend block tests', function() {
 
 		expect(chart.legend.legendHitBoxes.length).toBe(3);
 
-		[	{ h: 12, l: 101, t: 10, w: 93 },
-			{ h: 12, l: 205, t: 10, w: 93 },
-			{ h: 12, l: 308, t: 10, w: 93 }
-		].forEach(function(expected, i) {
+		[{ h: 12, l: 101, t: 10, w: 93 },
+		{ h: 12, l: 205, t: 10, w: 93 },
+		{ h: 12, l: 308, t: 10, w: 93 }
+		].forEach(function (expected, i) {
 			expect(chart.legend.legendHitBoxes[i].height).toBeCloseToPixel(expected.h);
 			expect(chart.legend.legendHitBoxes[i].left).toBeCloseToPixel(expected.l);
 			expect(chart.legend.legendHitBoxes[i].top).toBeCloseToPixel(expected.t);

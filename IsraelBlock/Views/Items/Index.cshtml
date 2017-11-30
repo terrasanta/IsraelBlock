@@ -1,0 +1,83 @@
+﻿@model IEnumerable<IsraelBlock.Models.Item>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (@TempData["Message"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["Message"]
+    </div>
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        LISTA DE ITENS
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        Venda
+                    </th>
+                    <th>
+                        Nome do Cliente
+                    </th>
+                    <th>
+                        Nota
+                    </th>
+                    <th>
+                        Item
+                    </th>
+                    <th>
+                        Produto
+                    </th>
+                    <th>
+                        Quantidade
+                    </th>
+                    <th>
+                        Valor Unitário
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SaleId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sale.NameClient)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sale.NrNota)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Product.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Amount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UnitaryValue)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Alterar", "Edit", new { id = item.ItemId }) |
+                            @Html.ActionLink("Detalhes", "Details", new { id = item.ItemId }) |
+                            @Html.ActionLink("Excluir", "Delete", new { id = item.ItemId })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer panel-info">
+        @Html.ActionLink("Cadastrar", "Create", null, new { @class = "btn btn-success" })
+    </div>
+</div>

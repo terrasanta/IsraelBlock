@@ -1,7 +1,6 @@
 "use strict";
 
-module.exports = function(Chart) {
-
+module.exports = function (Chart) {
 	var helpers = Chart.helpers,
 		defaults = Chart.defaults;
 
@@ -16,7 +15,7 @@ module.exports = function(Chart) {
 		hover: {
 			mode: 'single'
 		},
-		legendCallback: function(chart) {
+		legendCallback: function (chart) {
 			var text = [];
 			text.push('<ul class="' + chart.id + '-legend">');
 
@@ -39,10 +38,10 @@ module.exports = function(Chart) {
 		},
 		legend: {
 			labels: {
-				generateLabels: function(chart) {
+				generateLabels: function (chart) {
 					var data = chart.data;
 					if (data.labels.length && data.datasets.length) {
-						return data.labels.map(function(label, i) {
+						return data.labels.map(function (label, i) {
 							var meta = chart.getDatasetMeta(0);
 							var ds = data.datasets[0];
 							var arc = meta.data[i];
@@ -70,7 +69,7 @@ module.exports = function(Chart) {
 				}
 			},
 
-			onClick: function(e, legendItem) {
+			onClick: function (e, legendItem) {
 				var index = legendItem.index;
 				var chart = this.chart;
 				var i, ilen, meta;
@@ -96,10 +95,10 @@ module.exports = function(Chart) {
 		// Need to override these to give a nice default
 		tooltips: {
 			callbacks: {
-				title: function() {
+				title: function () {
 					return '';
 				},
-				label: function(tooltipItem, data) {
+				label: function (tooltipItem, data) {
 					return data.labels[tooltipItem.index] + ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
 				}
 			}
@@ -111,9 +110,7 @@ module.exports = function(Chart) {
 		cutoutPercentage: 0
 	});
 
-
 	Chart.controllers.doughnut = Chart.controllers.pie = Chart.DatasetController.extend({
-
 		dataElementType: Chart.elements.Arc,
 
 		linkScales: helpers.noop,
@@ -153,18 +150,18 @@ module.exports = function(Chart) {
 				var startAngle = opts.rotation % (Math.PI * 2.0);
 				startAngle += Math.PI * 2.0 * (startAngle >= Math.PI ? -1 : startAngle < -Math.PI ? 1 : 0);
 				var endAngle = startAngle + circumference;
-				var start = {x: Math.cos(startAngle), y: Math.sin(startAngle)};
-				var end = {x: Math.cos(endAngle), y: Math.sin(endAngle)};
+				var start = { x: Math.cos(startAngle), y: Math.sin(startAngle) };
+				var end = { x: Math.cos(endAngle), y: Math.sin(endAngle) };
 				var contains0 = (startAngle <= 0 && 0 <= endAngle) || (startAngle <= Math.PI * 2.0 && Math.PI * 2.0 <= endAngle);
 				var contains90 = (startAngle <= Math.PI * 0.5 && Math.PI * 0.5 <= endAngle) || (startAngle <= Math.PI * 2.5 && Math.PI * 2.5 <= endAngle);
 				var contains180 = (startAngle <= -Math.PI && -Math.PI <= endAngle) || (startAngle <= Math.PI && Math.PI <= endAngle);
 				var contains270 = (startAngle <= -Math.PI * 0.5 && -Math.PI * 0.5 <= endAngle) || (startAngle <= Math.PI * 1.5 && Math.PI * 1.5 <= endAngle);
 				var cutout = cutoutPercentage / 100.0;
-				var min = {x: contains180 ? -1 : Math.min(start.x * (start.x < 0 ? 1 : cutout), end.x * (end.x < 0 ? 1 : cutout)), y: contains270 ? -1 : Math.min(start.y * (start.y < 0 ? 1 : cutout), end.y * (end.y < 0 ? 1 : cutout))};
-				var max = {x: contains0 ? 1 : Math.max(start.x * (start.x > 0 ? 1 : cutout), end.x * (end.x > 0 ? 1 : cutout)), y: contains90 ? 1 : Math.max(start.y * (start.y > 0 ? 1 : cutout), end.y * (end.y > 0 ? 1 : cutout))};
-				var size = {width: (max.x - min.x) * 0.5, height: (max.y - min.y) * 0.5};
+				var min = { x: contains180 ? -1 : Math.min(start.x * (start.x < 0 ? 1 : cutout), end.x * (end.x < 0 ? 1 : cutout)), y: contains270 ? -1 : Math.min(start.y * (start.y < 0 ? 1 : cutout), end.y * (end.y < 0 ? 1 : cutout)) };
+				var max = { x: contains0 ? 1 : Math.max(start.x * (start.x > 0 ? 1 : cutout), end.x * (end.x > 0 ? 1 : cutout)), y: contains90 ? 1 : Math.max(start.y * (start.y > 0 ? 1 : cutout), end.y * (end.y > 0 ? 1 : cutout)) };
+				var size = { width: (max.x - min.x) * 0.5, height: (max.y - min.y) * 0.5 };
 				minSize = Math.min(availableWidth / size.width, availableHeight / size.height);
-				offset = {x: (max.x + min.x) * -0.5, y: (max.y + min.y) * -0.5};
+				offset = { x: (max.x + min.x) * -0.5, y: (max.y + min.y) * -0.5 };
 			}
 
 			chart.outerRadius = Math.max(minSize / 2, 0);
@@ -178,12 +175,12 @@ module.exports = function(Chart) {
 			_this.outerRadius = chart.outerRadius - (chart.radiusLength * _this.getRingIndex(_this.index));
 			_this.innerRadius = _this.outerRadius - chart.radiusLength;
 
-			helpers.each(meta.data, function(arc, index) {
+			helpers.each(meta.data, function (arc, index) {
 				_this.updateElement(arc, index, reset);
 			});
 		},
 
-		updateElement: function(arc, index, reset) {
+		updateElement: function (arc, index, reset) {
 			var _this = this;
 			var chart = _this.chart,
 				chartArea = chart.chartArea,
@@ -239,17 +236,17 @@ module.exports = function(Chart) {
 			arc.pivot();
 		},
 
-		removeHoverStyle: function(arc) {
+		removeHoverStyle: function (arc) {
 			Chart.DatasetController.prototype.removeHoverStyle.call(this, arc, this.chart.options.elements.arc);
 		},
 
-		calculateTotal: function() {
+		calculateTotal: function () {
 			var dataset = this.getDataset();
 			var meta = this.getMeta();
 			var total = 0;
 			var value;
 
-			helpers.each(meta.data, function(element, index) {
+			helpers.each(meta.data, function (element, index) {
 				value = dataset.data[index];
 				if (!isNaN(value) && !element.hidden) {
 					total += Math.abs(value);
@@ -259,7 +256,7 @@ module.exports = function(Chart) {
 			return total;
 		},
 
-		calculateCircumference: function(value) {
+		calculateCircumference: function (value) {
 			var total = this.getMeta().total;
 			if (total > 0 && !isNaN(value)) {
 				return (Math.PI * 2.0) * (value / total);

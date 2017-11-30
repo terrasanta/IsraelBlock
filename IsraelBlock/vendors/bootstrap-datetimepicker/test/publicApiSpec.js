@@ -21,7 +21,7 @@ describe('Plugin initialization and component basic construction', function () {
     });
 
     it('creates the component with default options merged with those provided on an input element', function () {
-        var options = {locale: 'fr'},
+        var options = { locale: 'fr' },
             dtpElement = $('<input>'),
             dtp;
         $(document).find('body').append(dtpElement);
@@ -399,7 +399,7 @@ describe('Public API method tests', function () {
             });
 
             it('sets options', function () {
-                var options = {locale: 'fr'};
+                var options = { locale: 'fr' };
                 expect(dtpElement.datetimepicker('options', options)).toBe(dtpElement);
                 expect(dtpElement.datetimepicker('options')).toEqual($.extend(true, {}, dtpElement.datetimepicker.defaults, options));
             });
@@ -704,7 +704,7 @@ describe('Public API method tests', function () {
             });
 
             it('sets icons', function () {
-                var icons = {time: 'fa fa-time'};
+                var icons = { time: 'fa fa-time' };
                 expect(dtpElement.datetimepicker('icons', icons)).toBe(dtpElement);
                 expect(dtpElement.datetimepicker('icons')).toEqual($.extend(true, {}, dtpElement.datetimepicker.defaults.icons, icons));
             });
@@ -784,7 +784,7 @@ describe('Public API method tests', function () {
             });
 
             it('sets widget positioning', function () {
-                var widgetPositioning = {horizontal: 'left'};
+                var widgetPositioning = { horizontal: 'left' };
                 expect(dtpElement.datetimepicker('widgetPositioning', widgetPositioning)).toBe(dtpElement);
                 expect(dtpElement.datetimepicker('widgetPositioning')).toEqual($.extend(true, {}, dtpElement.datetimepicker.defaults.widgetPositioning, widgetPositioning));
             });
@@ -1137,7 +1137,7 @@ describe('Public API method tests', function () {
             });
 
             it('sets key binds', function () {
-                var keyBinds = {up: function () {}};
+                var keyBinds = { up: function () { } };
                 expect(dtpElement.datetimepicker('keyBinds', keyBinds)).toBe(dtpElement);
                 expect(dtpElement.datetimepicker('keyBinds')).toEqual(keyBinds);
             });
@@ -1157,7 +1157,7 @@ describe('Public API method tests', function () {
             });
 
             it('sets parse input date', function () {
-                var parseInputDate = function () {};
+                var parseInputDate = function () { };
                 expect(dtpElement.datetimepicker('parseInputDate', parseInputDate)).toBe(dtpElement);
                 expect(dtpElement.datetimepicker('parseInputDate')).toBe(parseInputDate);
             });
@@ -1165,7 +1165,7 @@ describe('Public API method tests', function () {
     });
 
     describe('Time zone tests', function () {
-        function makeFormatTest (format, displayTimeZone) {
+        function makeFormatTest(format, displayTimeZone) {
             it('should not change the value that was set when using format ' + format, function () { // #1326
                 var oldFormat = dtp.format(),
                     oldTimeZone = dtp.timeZone(),

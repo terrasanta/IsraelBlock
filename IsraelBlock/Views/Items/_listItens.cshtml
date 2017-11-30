@@ -1,0 +1,46 @@
+﻿@model IEnumerable<IsraelBlock.Models.Item>
+
+@{
+    ViewBag.Title = "Itens adicionados";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Items da Venda
+    </div>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sale.NrNota)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitaryValue)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sale.NrNota)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitaryValue)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+

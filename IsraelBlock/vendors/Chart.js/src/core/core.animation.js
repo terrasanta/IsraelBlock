@@ -1,8 +1,7 @@
 /*global window: false */
 "use strict";
 
-module.exports = function(Chart) {
-
+module.exports = function (Chart) {
 	var helpers = Chart.helpers;
 
 	Chart.defaults.global.animation = {
@@ -27,8 +26,7 @@ module.exports = function(Chart) {
 		animations: [],
 		dropFrames: 0,
 		request: null,
-		addAnimation: function(chartInstance, animationObject, duration, lazy) {
-
+		addAnimation: function (chartInstance, animationObject, duration, lazy) {
 			if (!lazy) {
 				chartInstance.animating = true;
 			}
@@ -52,8 +50,8 @@ module.exports = function(Chart) {
 			}
 		},
 		// Cancel the animation for a given chart instance
-		cancelAnimation: function(chartInstance) {
-			var index = helpers.findIndex(this.animations, function(animationWrapper) {
+		cancelAnimation: function (chartInstance) {
+			var index = helpers.findIndex(this.animations, function (animationWrapper) {
 				return animationWrapper.chartInstance === chartInstance;
 			});
 
@@ -62,20 +60,19 @@ module.exports = function(Chart) {
 				chartInstance.animating = false;
 			}
 		},
-		requestAnimationFrame: function() {
+		requestAnimationFrame: function () {
 			var me = this;
 			if (me.request === null) {
 				// Skip animation frame requests until the active one is executed.
 				// This can happen when processing mouse events, e.g. 'mousemove'
 				// and 'mouseout' events will trigger multiple renders.
-				me.request = helpers.requestAnimFrame.call(window, function() {
+				me.request = helpers.requestAnimFrame.call(window, function () {
 					me.request = null;
 					me.startDigest();
 				});
 			}
 		},
-		startDigest: function() {
-
+		startDigest: function () {
 			var startTime = Date.now();
 			var framesToDrop = 0;
 

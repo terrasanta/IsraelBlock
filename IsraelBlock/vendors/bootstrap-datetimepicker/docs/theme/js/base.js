@@ -1,9 +1,7 @@
-
 /* Prettyify */
 $( document ).ready(function() {
     prettyPrint();
 });
-
 
 /* Scrollspy */
 var navHeight = $('.navbar').outerHeight(true) + 10
@@ -13,12 +11,10 @@ $('body').scrollspy({
     offset: navHeight
 })
 
-
 /* Prevent disabled links from causing a page reload */
 $("li.disabled a").click(function() {
     event.preventDefault();
 });
-
 
 /* Adjust the scroll height of anchors to compensate for the fixed navbar */
 window.disableShift = false;
@@ -37,7 +33,6 @@ var shiftWindow = function() {
 };
 if (location.hash) {shiftWindow();}
 window.addEventListener("hashchange", shiftWindow);
-
 
 /* Deal with clicks on nav links that do not change the current anchor link. */
 $("ul.nav a" ).click(function() {

@@ -1,4 +1,4 @@
-module.exports = function(config) {
+module.exports = function (config) {
 	var configuration = {
 		browsers: ['Firefox'],
 
@@ -15,7 +15,7 @@ module.exports = function(config) {
 				}
 			}]]
 		},
-		
+
 		reporters: ['progress', 'coverage'],
 		coverageReporter: {
 			dir: 'coverage/',

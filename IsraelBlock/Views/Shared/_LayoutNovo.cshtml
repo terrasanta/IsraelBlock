@@ -46,6 +46,12 @@
                                 <li>
                                     <a href="@Url.Action("Index", "suppliers")"><i class="fa fa-edit"></i> Fornecedores</a>
                                 </li>
+                                <li>
+                                    <a href="@Url.Action("Index", "sales")"><i class="fa fa-edit"></i> Vendas</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Index", "items")"><i class="fa fa-edit"></i> Itens</a>
+                                </li>
 
                             </ul>
                         </div>
@@ -84,6 +90,12 @@
                                     <h3>@ViewBag.Title<small> | Página de administração</small></h3>
                                 </div>
                             </div>
+                            @if (@TempData["Message"] != null)
+                            {
+                                <div class="alert alert-success" role="alert">
+                                    @TempData["Message"]
+                                </div>
+                            }
                             <div class="row">
                                 <div class="col-md-12">
                                     @RenderBody()
@@ -116,5 +128,6 @@
     <script src="@Url.Content("~/vendors/skycons/skycons.js")"></script>
     <script src="@Url.Content("~/build/js/custom.min.js")"></script>
     <script src="@Url.Content("~/scripts/app.js")"></script>
+    @RenderSection("scripts", required: false)
 </body>
 </html>

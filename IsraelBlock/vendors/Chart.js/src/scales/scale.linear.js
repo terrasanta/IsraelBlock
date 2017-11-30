@@ -1,13 +1,12 @@
 "use strict";
 
-module.exports = function(Chart) {
-
+module.exports = function (Chart) {
 	var helpers = Chart.helpers;
 
 	var defaultConfig = {
 		position: "left",
 		ticks: {
-			callback: function(tickValue, index, ticks) {
+			callback: function (tickValue, index, ticks) {
 				// If we have lots of ticks, don't use the ones
 				var delta = ticks.length > 3 ? ticks[2] - ticks[1] : ticks[1] - ticks[0];
 
@@ -36,7 +35,7 @@ module.exports = function(Chart) {
 	};
 
 	var LinearScale = Chart.Scale.extend({
-		determineDataLimits: function() {
+		determineDataLimits: function () {
 			var _this = this;
 			var opts = _this.options;
 			var tickOpts = opts.ticks;
@@ -58,7 +57,7 @@ module.exports = function(Chart) {
 				var hasPositiveValues = false;
 				var hasNegativeValues = false;
 
-				helpers.each(datasets, function(dataset, datasetIndex) {
+				helpers.each(datasets, function (dataset, datasetIndex) {
 					var meta = chart.getDatasetMeta(datasetIndex);
 					if (valuesPerType[meta.type] === undefined) {
 						valuesPerType[meta.type] = {
@@ -72,7 +71,7 @@ module.exports = function(Chart) {
 					var negativeValues = valuesPerType[meta.type].negativeValues;
 
 					if (chart.isDatasetVisible(datasetIndex) && IDMatches(meta)) {
-						helpers.each(dataset.data, function(rawValue, index) {
+						helpers.each(dataset.data, function (rawValue, index) {
 							var value = +_this.getRightValue(rawValue);
 							if (isNaN(value) || meta.data[index].hidden) {
 								return;
@@ -96,19 +95,18 @@ module.exports = function(Chart) {
 					}
 				});
 
-				helpers.each(valuesPerType, function(valuesForType) {
+				helpers.each(valuesPerType, function (valuesForType) {
 					var values = valuesForType.positiveValues.concat(valuesForType.negativeValues);
 					var minVal = helpers.min(values);
 					var maxVal = helpers.max(values);
 					_this.min = _this.min === null ? minVal : Math.min(_this.min, minVal);
 					_this.max = _this.max === null ? maxVal : Math.max(_this.max, maxVal);
 				});
-
 			} else {
-				helpers.each(datasets, function(dataset, datasetIndex) {
+				helpers.each(datasets, function (dataset, datasetIndex) {
 					var meta = chart.getDatasetMeta(datasetIndex);
 					if (chart.isDatasetVisible(datasetIndex) && IDMatches(meta)) {
-						helpers.each(dataset.data, function(rawValue, index) {
+						helpers.each(dataset.data, function (rawValue, index) {
 							var value = +_this.getRightValue(rawValue);
 							if (isNaN(value) || meta.data[index].hidden) {
 								return;
@@ -166,7 +164,7 @@ module.exports = function(Chart) {
 				}
 			}
 		},
-		buildTicks: function() {
+		buildTicks: function () {
 			var _this = this;
 			var opts = _this.options;
 			var tickOpts = opts.ticks;
@@ -243,10 +241,10 @@ module.exports = function(Chart) {
 				_this.end = _this.max;
 			}
 		},
-		getLabelForIndex: function(index, datasetIndex) {
+		getLabelForIndex: function (index, datasetIndex) {
 			return +this.getRightValue(this.chart.data.datasets[datasetIndex].data[index]);
 		},
-		convertTicksToLabels: function() {
+		convertTicksToLabels: function () {
 			var _this = this;
 			_this.ticksAsNumbers = _this.ticks.slice();
 			_this.zeroLineIndex = _this.ticks.indexOf(0);
@@ -254,7 +252,7 @@ module.exports = function(Chart) {
 			Chart.Scale.prototype.convertTicksToLabels.call(_this);
 		},
 		// Utils
-		getPixelForValue: function(value, index, datasetIndex, includeOffset) {
+		getPixelForValue: function (value, index, datasetIndex, includeOffset) {
 			// This must be called after fit has been run so that
 			//      this.left, this.top, this.right, and this.bottom have been defined
 			var _this = this;
@@ -277,7 +275,7 @@ module.exports = function(Chart) {
 				return Math.round(pixel);
 			}
 		},
-		getValueForPixel: function(pixel) {
+		getValueForPixel: function (pixel) {
 			var _this = this;
 			var isHorizontal = _this.isHorizontal();
 			var paddingLeft = _this.paddingLeft;
@@ -286,10 +284,9 @@ module.exports = function(Chart) {
 			var offset = (isHorizontal ? pixel - _this.left - paddingLeft : _this.bottom - paddingBottom - pixel) / innerDimension;
 			return _this.start + ((_this.end - _this.start) * offset);
 		},
-		getPixelForTick: function(index, includeOffset) {
+		getPixelForTick: function (index, includeOffset) {
 			return this.getPixelForValue(this.ticksAsNumbers[index], null, null, includeOffset);
 		}
 	});
 	Chart.scaleService.registerScaleType("linear", LinearScale, defaultConfig);
-
 };

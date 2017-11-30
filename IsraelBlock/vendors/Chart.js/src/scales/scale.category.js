@@ -1,7 +1,6 @@
 "use strict";
 
-module.exports = function(Chart) {
-
+module.exports = function (Chart) {
 	var helpers = Chart.helpers;
 	// Default config for a category scale
 	var defaultConfig = {
@@ -9,8 +8,8 @@ module.exports = function(Chart) {
 	};
 
 	var DatasetScale = Chart.Scale.extend({
-		// Implement this so that 
-		determineDataLimits: function() {
+		// Implement this so that
+		determineDataLimits: function () {
 			this.minIndex = 0;
 			this.maxIndex = this.chart.data.labels.length - 1;
 			var findIndex;
@@ -31,17 +30,17 @@ module.exports = function(Chart) {
 			this.max = this.chart.data.labels[this.maxIndex];
 		},
 
-		buildTicks: function(index) {
+		buildTicks: function (index) {
 			// If we are viewing some subset of labels, slice the original array
 			this.ticks = (this.minIndex === 0 && this.maxIndex === this.chart.data.labels.length - 1) ? this.chart.data.labels : this.chart.data.labels.slice(this.minIndex, this.maxIndex + 1);
 		},
 
-		getLabelForIndex: function(index, datasetIndex) {
+		getLabelForIndex: function (index, datasetIndex) {
 			return this.ticks[index];
 		},
 
 		// Used to get data value locations.  Value can either be an index or a numerical value
-		getPixelForValue: function(value, index, datasetIndex, includeOffset) {
+		getPixelForValue: function (value, index, datasetIndex, includeOffset) {
 			// 1 is added because we need the length but we have the indexes
 			var offsetAmt = Math.max((this.maxIndex + 1 - this.minIndex - ((this.options.gridLines.offsetGridLines) ? 0 : 1)), 1);
 
@@ -67,12 +66,12 @@ module.exports = function(Chart) {
 				return this.top + Math.round(heightOffset);
 			}
 		},
-		getPixelForTick: function(index, includeOffset) {
+		getPixelForTick: function (index, includeOffset) {
 			return this.getPixelForValue(this.ticks[index], index + this.minIndex, null, includeOffset);
 		},
-		getValueForPixel: function(pixel) {
+		getValueForPixel: function (pixel) {
 			var value
-;			var offsetAmt = Math.max((this.ticks.length - ((this.options.gridLines.offsetGridLines) ? 0 : 1)), 1);
+				; var offsetAmt = Math.max((this.ticks.length - ((this.options.gridLines.offsetGridLines) ? 0 : 1)), 1);
 			var horz = this.isHorizontal();
 			var innerDimension = horz ? this.width - (this.paddingLeft + this.paddingRight) : this.height - (this.paddingTop + this.paddingBottom);
 			var valueDimension = innerDimension / offsetAmt;
@@ -93,5 +92,4 @@ module.exports = function(Chart) {
 	});
 
 	Chart.scaleService.registerScaleType("category", DatasetScale, defaultConfig);
-
 };

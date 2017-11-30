@@ -35,7 +35,6 @@
 'use strict';
 var DataTable = $.fn.dataTable;
 
-
 // F6 has different requirements for the dropdown button set. We can use the
 // Foundation version found by DataTables in order to support both F5 and F6 in
 // the same file, but not that this requires DataTables 1.10.11+ for F6 support.
@@ -77,9 +76,7 @@ $.extend( true, DataTable.Buttons.defaults, {
 	}
 } );
 
-
 DataTable.ext.buttons.collection.className = 'buttons-collection dropdown';
-
 
 return DataTable.Buttons;
 }));
